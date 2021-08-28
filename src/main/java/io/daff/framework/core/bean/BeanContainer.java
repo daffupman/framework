@@ -1,5 +1,6 @@
-package io.daff.framework.core.context;
+package io.daff.framework.core.bean;
 
+import io.daff.framework.aop.anno.Aspect;
 import io.daff.framework.core.anno.Component;
 import io.daff.framework.core.anno.Controller;
 import io.daff.framework.core.anno.Repository;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 /**
  * Bean 容器
@@ -31,8 +33,8 @@ public class BeanContainer {
      * 容器加载完成的标志位
      */
     private Boolean loaded = false;
-    private static final List<Class<? extends Annotation>> BEAN_ANNOTATION = Arrays.asList(
-            Component.class, Controller.class, Service.class, Repository.class
+    private final static List<Class<? extends Annotation>> BEAN_ANNOTATION = Arrays.asList(
+            Component.class, Controller.class, Service.class, Repository.class, Aspect.class
     );
     /**
      * class容器
@@ -121,6 +123,19 @@ public class BeanContainer {
 
     public Set<Class<?>> getClasses() {
         return beanMap.keySet();
+    }
+
+    public Set<Class<?>> getClassesByAnnotation(Class<? extends Annotation> annotation) {
+
+        Set<Class<?>> annotationClasses = getClasses();
+        if (CollectionUtil.isEmpty(annotationClasses)) {
+            logger.warn("bean container has no {} class.", annotation.getSimpleName());
+            return Collections.emptySet();
+        }
+
+        return annotationClasses.stream()
+                .filter(annotationClass -> annotationClass.isAnnotationPresent(annotation))
+                .collect(Collectors.toSet());
     }
 
     /**

@@ -2,8 +2,11 @@ package io.daff.biz.service.impl;
 
 import io.daff.biz.service.UserService;
 import io.daff.framework.core.anno.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author daff
@@ -12,8 +15,11 @@ import java.util.Arrays;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
     @Override
     public void queryUser() {
-        Arrays.asList("wangzhengjin", "yangyang").forEach(System.out::println);
+        List<String> mockUsernames = Arrays.asList("wangzhengjin", "yangyang");
+        logger.info("查询出的用户：{}", Arrays.toString(mockUsernames.toArray()));
     }
 }

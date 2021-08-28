@@ -1,4 +1,4 @@
-package io.daff.framework.core.context;
+package io.daff.framework.core.bean;
 
 import io.daff.framework.core.anno.Autowired;
 import io.daff.framework.core.anno.Qualifier;
@@ -22,9 +22,8 @@ public class DependencyInjector {
     private final Logger logger = LoggerFactory.getLogger(DependencyInjector.class);
     private final BeanContainer beanContainer;
 
-    public DependencyInjector(String packageName) {
+    public DependencyInjector() {
         this.beanContainer = BeanContainer.getInstance();
-        this.beanContainer.loadBeans(packageName);
     }
 
     /**

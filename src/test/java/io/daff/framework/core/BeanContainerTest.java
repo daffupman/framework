@@ -1,6 +1,6 @@
 package io.daff.framework.core;
 
-import io.daff.framework.core.context.BeanContainer;
+import io.daff.framework.core.bean.BeanContainer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;

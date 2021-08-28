@@ -1,7 +1,7 @@
 package io.daff.biz;
 
 import io.daff.biz.controller.UserController;
-import io.daff.framework.core.context.SimpleAnnotationConfigApplicationContext;
+import io.daff.framework.context.SimpleAnnotationConfigApplicationContext;
 
 /**
  * @author daff

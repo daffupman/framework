@@ -17,9 +17,9 @@ import java.util.Set;
  */
 public class ClassUtil {
 
-    private static final Logger logger = LoggerFactory.getLogger(ClassUtil.class);
+    private static Logger logger = LoggerFactory.getLogger(ClassUtil.class);
 
-    private static final String FILE_PROTOCOL = "file";
+    private static String FILE_PROTOCOL = "file";
 
     /**
      * 对指定包提取Class类

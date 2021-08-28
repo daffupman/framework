@@ -2,7 +2,7 @@ package io.daff.framework.core;
 
 import io.daff.biz.BizEntrance;
 import io.daff.biz.controller.UserController;
-import io.daff.framework.core.context.SimpleAnnotationConfigApplicationContext;
+import io.daff.framework.context.SimpleAnnotationConfigApplicationContext;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -11,11 +11,7 @@ import org.junit.jupiter.api.Test;
  */
 public class SimpleAnnotationConfigApplicationContextTest {
 
-    private final SimpleAnnotationConfigApplicationContext simpleAnnotationConfigApplicationContext;
-
-    {
-        this.simpleAnnotationConfigApplicationContext = new SimpleAnnotationConfigApplicationContext(BizEntrance.class);
-    }
+    private final SimpleAnnotationConfigApplicationContext simpleAnnotationConfigApplicationContext = new SimpleAnnotationConfigApplicationContext(BizEntrance.class);
 
     @Test
     public void testGetBean() {
