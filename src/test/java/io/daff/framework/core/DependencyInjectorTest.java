@@ -1,5 +1,7 @@
 package io.daff.framework.core;
 
+import io.daff.framework.core.context.BeanContainer;
+import io.daff.framework.core.context.DependencyInjector;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -12,9 +14,7 @@ public class DependencyInjectorTest {
     @DisplayName("测试依赖注入")
     @Test
     public void testDoIoc() {
-        BeanContainer beanContainer = BeanContainer.getInstance();
-        beanContainer.loadBeans("io.daff.biz");
-        DependencyInjector di = new DependencyInjector(beanContainer);
+        DependencyInjector di = new DependencyInjector("io.daff.biz");
         di.doIoc();
     }
 }

@@ -1,4 +1,4 @@
-package io.daff.framework.core;
+package io.daff.framework.core.context;
 
 import io.daff.framework.core.anno.Autowired;
 import io.daff.framework.core.anno.Qualifier;
@@ -22,10 +22,14 @@ public class DependencyInjector {
     private final Logger logger = LoggerFactory.getLogger(DependencyInjector.class);
     private final BeanContainer beanContainer;
 
-    public DependencyInjector(BeanContainer beanContainer) {
-        this.beanContainer = beanContainer;
+    public DependencyInjector(String packageName) {
+        this.beanContainer = BeanContainer.getInstance();
+        this.beanContainer.loadBeans(packageName);
     }
 
+    /**
+     * 为bean容器中的每个bean的属性注入值
+     */
     public void doIoc() {
         Set<Class<?>> classes = beanContainer.getClasses();
         if (CollectionUtil.isEmpty(classes)) {
@@ -49,11 +53,17 @@ public class DependencyInjector {
         }
     }
 
+    /**
+     * 获取字段上的Qualifier注解中的值
+     */
     private String getQualifierValue(Field field) {
         Qualifier qualifier = field.getAnnotation(Qualifier.class);
         return qualifier == null ? null : qualifier.value();
     }
 
+    /**
+     * 根据类型和名称查找bean
+     */
     private Object getFieldInstance(Class<?> fieldType, String qualifierClassName) {
         Object fieldValue = beanContainer.getBean(fieldType);
         if (fieldValue != null) {
