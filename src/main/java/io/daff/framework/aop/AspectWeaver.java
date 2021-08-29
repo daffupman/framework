@@ -3,7 +3,7 @@ package io.daff.framework.aop;
 import io.daff.framework.aop.anno.Aspect;
 import io.daff.framework.aop.anno.Order;
 import io.daff.framework.aop.aspect.AspectContext;
-import io.daff.framework.aop.aspect.AspectContextsExecutor;
+import io.daff.framework.aop.aspect.AspectProxy;
 import io.daff.framework.aop.aspect.DefaultAspect;
 import io.daff.framework.core.bean.BeanContainer;
 import io.daff.framework.utils.CgProxyUtil;
@@ -59,9 +59,9 @@ public class AspectWeaver {
         // 生成代理类
         if (CollectionUtil.isNotEmpty(classesByAnnotation)) {
             for (Class<?> originClass : classesByAnnotation) {
-                AspectContextsExecutor aspectContextsExecutor = new AspectContextsExecutor(originClass, aspects);
+                AspectProxy aspectProxy = new AspectProxy(originClass, aspects);
                 // 创建代理类
-                Object proxy = CgProxyUtil.newProxy(originClass, aspectContextsExecutor);
+                Object proxy = CgProxyUtil.newProxy(originClass, aspectProxy);
                 // 替换原来的类
                 beanContainer.addBean(originClass, proxy);
             }

@@ -12,7 +12,7 @@ import java.util.List;
  * @author daff
  * @since 2021/8/28
  */
-public class AspectContextsExecutor implements MethodInterceptor {
+public class AspectProxy implements MethodInterceptor {
 
     /**
      * 被代理的类
@@ -23,7 +23,7 @@ public class AspectContextsExecutor implements MethodInterceptor {
      */
     private final List<AspectContext> aspectContexts;
 
-    public AspectContextsExecutor(Class<?> target, List<AspectContext> aspectContexts) {
+    public AspectProxy(Class<?> target, List<AspectContext> aspectContexts) {
         this.target = target;
         this.aspectContexts = sortAspectContextsByOrder(aspectContexts);
     }
@@ -42,14 +42,15 @@ public class AspectContextsExecutor implements MethodInterceptor {
             invokeBeforeAdvices(method, args);
             // 执行被代理的方法
             returnValue = methodProxy.invokeSuper(proxy, args);
-            // 按order降序执行后置通知
-            invokeAfterAdvices(method, args);
             // 执行成功：按order降序执行后置成功通知
             returnValue = invokeAfterReturningAdvices(method, args, returnValue);
         } catch (Throwable e) {
             // 执行已成：按order降序执行后置异常通知
             invokeAfterThrowingAdvices(method, args, e);
             throw e;
+        } finally {
+            // 按order降序执行后置通知
+            invokeAfterAdvices(method, args);
         }
 
         return returnValue;

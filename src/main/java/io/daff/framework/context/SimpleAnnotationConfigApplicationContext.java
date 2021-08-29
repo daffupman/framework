@@ -18,8 +18,10 @@ public class SimpleAnnotationConfigApplicationContext implements BeanFactory {
     public SimpleAnnotationConfigApplicationContext(Class<?> entranceClass) {
         String packageName = entranceClass.getPackageName();
         this.beanContainer = BeanContainer.getInstance();
-        beanContainer.loadBeans(packageName);
+        this.beanContainer.loadBeans(packageName);
+        // aop
         new AspectWeaver().doAop();
+        // ioc
         new DependencyInjector().doIoc();
     }
 
