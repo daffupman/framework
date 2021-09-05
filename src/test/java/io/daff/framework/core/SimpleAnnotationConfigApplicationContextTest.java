@@ -2,7 +2,7 @@ package io.daff.framework.core;
 
 import io.daff.biz.BizEntrance;
 import io.daff.biz.controller.UserController;
-import io.daff.framework.context.SimpleAnnotationConfigApplicationContext;
+import io.daff.framework.core.context.SimpleAnnotationConfigApplicationContext;
 import org.junit.jupiter.api.Test;
 
 /**
